@@ -25,7 +25,7 @@ class ItemCategoryController extends BaseController
     public function store(ItemCategoryRequest $request)
     {
         
-        return $this->successResponse($this->itemCategoryService->store($request), 'Category Created successful');
+        return $this->successResponse($this->itemCategoryService->store($request), 'Category Created successful',201);
     }
 
     /**
@@ -52,6 +52,6 @@ class ItemCategoryController extends BaseController
     public function destroy(string $id)
     {
         
-        return $this->successResponse($this->itemCategoryService->delete($id), 'Category deleted successful');
+        return $this->successResponse($this->itemCategoryService->delete($id), 'Category deleted successful',204);
     }
 }
