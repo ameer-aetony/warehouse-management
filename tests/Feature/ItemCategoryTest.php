@@ -71,7 +71,7 @@ class ItemCategoryTest extends TestCase
     public function it_can_create_an_item_category()
     {
         $response = $this->postJson('/api/categories', [
-            'name' => 'Electronics',
+            'name' => 'electronics',
         ]);
 
         $response->assertStatus(201)
@@ -79,12 +79,12 @@ class ItemCategoryTest extends TestCase
                 'success' => true,
                 'message' => 'Category Created successful',
                 'data' => [
-                    'name' => 'Electronics',
+                    'name' => 'electronics',
                 ]
             ]);
 
         $this->assertDatabaseHas('item_categories', [
-            'name' => 'Electronics',
+            'name' => 'electronics',
         ]);
     }
 
