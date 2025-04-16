@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class InTransaction extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['item_id', 'quantity', 'warehouse_transaction_id'];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+    public function warehouseTransaction()
+    {
+        return $this->belongsTo(WarehouseTransaction::class);
+    }
 }

@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class WarehouseTransactionType extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['name'];
+
+    public function transactions()
+    {
+        return $this->hasMany(WarehouseTransaction::class);
+    }
 }
