@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Interfaces\ItemCategoryInterFace;
+use App\Interfaces\ItemInterFace;
+use App\Models\Item;
 use App\Models\ItemCategory;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class ItemCategoryRepository implements ItemCategoryInterFace
+final class ItemRepository implements ItemInterFace
 {
-    public function __construct(private readonly ItemCategory $model) {}
+    public function __construct(private readonly Item $model) {}
 
     /**
      * getAll
@@ -26,12 +28,12 @@ final class ItemCategoryRepository implements ItemCategoryInterFace
      * getOne
      *
      * @param  int $id
-     * @return ItemCategory
+     * @return Item
      */
-    public function getOne(string $id): ItemCategory
+    public function getOne(string $id): Item
     {
         $category = $this->model->find($id);
-        if (!$category) throw new \Exception('category id not found');
+        if (!$category) throw new \Exception('item id not found');
         return $category;
     }
 
@@ -39,9 +41,9 @@ final class ItemCategoryRepository implements ItemCategoryInterFace
      * store
      *
      * @param  Request $request
-     * @return ItemCategory
+     * @return Item
      */
-    public function store(Request $request): ItemCategory
+    public function store(Request $request): Item
     {
         return $this->model->create($request->all());
     }

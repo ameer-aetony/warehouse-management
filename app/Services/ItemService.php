@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Interfaces\ItemCategoryInterFace;
-use App\Models\ItemCategory;
+use App\Interfaces\ItemInterFace;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class ItemCategoryService
+final class ItemService
 {
-    public function __construct(protected readonly ItemCategoryInterFace $itemCategoryInterFace) {}
+    public function __construct(protected readonly ItemInterFace $itemInterFace) {}
 
     /**
      * getAll
@@ -18,29 +18,30 @@ final class ItemCategoryService
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->itemCategoryInterFace->getAll();
+        return $this->itemInterFace->getAll();
     }
 
     /**
      * store
      *
      * @param  Request $request
-     * @return ItemCategory
+     * @return Item
      */
-    public function store(Request $request): ItemCategory
+    public function store(Request $request): Item
     {
-        return $this->itemCategoryInterFace->store($request);
+        return $this->itemInterFace->store($request);
     }
+
 
     /**
      * getOne
      *
      * @param  string $id
-     * @return ItemCategory
+     * @return Item
      */
-    public function getOne(string $id): ItemCategory
+    public function getOne(string $id): Item
     {
-        return $this->itemCategoryInterFace->getOne($id);
+        return $this->itemInterFace->getOne($id);
     }
 
     /**
@@ -52,17 +53,17 @@ final class ItemCategoryService
      */
     public function update(Request $request, string $id): bool
     {
-        return $this->itemCategoryInterFace->update($request, $id);
+        return $this->itemInterFace->update($request, $id);
     }
 
     /**
      * delete
      *
-     * @param  Request $id
+     * @param  string $id
      * @return bool
      */
     public function delete(string $id): bool
     {
-        return $this->itemCategoryInterFace->delete($id);
+        return $this->itemInterFace->delete($id);
     }
 }
