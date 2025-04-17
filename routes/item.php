@@ -19,6 +19,7 @@ Route::prefix('categories')->controller(ItemCategoryController::class)->group(fu
 Route::prefix('items')->controller(ItemController::class)->group(function () {
     Route::get('/','index');
     Route::get('/{id}','show');
+    Route::get('/reverse/{code}','reverseCode');
     Route::get('movements/{id}','itemMovement');
     Route::get('inventory/{id}','itemInventory');
     Route::post('/','store');

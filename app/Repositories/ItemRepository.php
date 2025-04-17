@@ -34,22 +34,22 @@ final class ItemRepository implements ItemInterFace
         $item = $this->model->with('category')->find($id);
         if (!$item) throw new \Exception('item id not found');
         return $item;
-    }   
-    
+    }
+
     public function getItemMovement(string $id): Item
     {
-       return $this->getOne($id)->load([
-        'inTransactions' => function ($query) {
-            $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
-                  ->with(['warehouseTransaction.transactionType:id,name']);
-        },
-        'outTransactions' => function ($query) {
-            $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
-                  ->with(['warehouseTransaction.transactionType:id,name']);
-        }
-    ]);
+        return $this->getOne($id)->load([
+            'inTransactions' => function ($query) {
+                $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
+                    ->with(['warehouseTransaction.transactionType:id,name']);
+            },
+            'outTransactions' => function ($query) {
+                $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
+                    ->with(['warehouseTransaction.transactionType:id,name']);
+            }
+        ]);
     }
-     
+
     /**
      * store
      *
@@ -68,12 +68,12 @@ final class ItemRepository implements ItemInterFace
      * @param  Request $request
      * @return bool
      */
-    public function update(Request $request,string $id): bool
+    public function update(Request $request, string $id): bool
     {
         $item = $this->getOne($id);
         return $item->update($request->all());
     }
-    
+
     /**
      * delete
      *
@@ -84,5 +84,26 @@ final class ItemRepository implements ItemInterFace
     {
         $item = $this->getOne($id);
         return $item->delete($id);
+    }
+
+    /**
+     * reverseCodeToItem
+     *
+     * @param  string $itemChar
+     * @param  string $categoryChar
+     * @param  string $commercialChar
+     * @param  int $lengthCommercialChar
+     * 
+     */
+    public function reverseCodeToItem(string $itemChar, string $categoryChar, string $commercialChar, int $lengthCommercialChar)
+    {
+        $categoryCharArray = str_split($categoryChar);
+
+        return $this->model->where('name', 'like', $itemChar . '%')
+            ->where('commercial_name', 'like', $commercialChar . '%')
+            ->whereHas('category', function ($q) use ($categoryCharArray) {
+                $q->where('name', 'like', $categoryCharArray[0] . '%')
+                    ->where('name', 'like', '%' . $categoryCharArray[1]);
+            })->whereRaw('LENGTH(commercial_name) = ' . $lengthCommercialChar)->first();
     }
 }

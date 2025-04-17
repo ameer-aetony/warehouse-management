@@ -17,6 +17,8 @@ interface ItemInterFace
 
     public function store(Request $request): Item;
 
+    public function reverseCodeToItem(string $itemChar,string $categoryChar,string $commercialCharacter,int $lengthCommercialChar);
+
     public function update(Request $request,string $id): bool;
 
     public function delete(string $id): bool;

@@ -21,6 +21,12 @@ final class ItemService
         return $this->itemInterFace->getAll();
     }
 
+    /**
+     * getItemMovement
+     *
+     * @param  string $id
+     * @return void
+     */
     public function getItemMovement(string $id)
     {
         return $this->itemInterFace->getItemMovement($id);
@@ -70,5 +76,23 @@ final class ItemService
     public function delete(string $id): bool
     {
         return $this->itemInterFace->delete($id);
+    }
+    
+    /**
+     * reverseCodeToItem
+     *
+     * @param  string $code
+     * @return Item
+     */
+    public function reverseCodeToItem(string $code)
+    {
+        if (strlen($code) < 7) throw new \Exception('invalid code');
+
+        $itemChar = substr($code, 0, 1);
+        $categoryChar = substr($code, 1, 2);
+        $commercialChar = substr($code, 3, 1);
+        $lengthCommercialChar = substr($code, 6);
+
+        return $this->itemInterFace->reverseCodeToItem($itemChar, $categoryChar, $commercialChar, $lengthCommercialChar);
     }
 }

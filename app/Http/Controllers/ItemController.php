@@ -67,7 +67,7 @@ class ItemController extends BaseController
         try {
             $stockService = app(StockService::class);
             $stock = $stockService->calculateStock($id);
-          
+
             return $this->successResponse(['total_income' => $stock['in_stock'], 'total_outcome' => $stock['out_stock'], 'remaining' => $stock['remaining']]);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());
@@ -84,6 +84,22 @@ class ItemController extends BaseController
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function reverseCode(string $code)
+    {
+        try {
+            $item = $this->itemService->reverseCodeToItem($code);
+
+            return $this->successResponse(['item name'=>$item->name,'category'=>$item->category->name,'commercial name'=>$item->commercial_name]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
+            
+      
     }
 
     /**
