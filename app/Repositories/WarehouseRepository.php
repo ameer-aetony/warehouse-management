@@ -2,17 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ItemCategoryInterFace;
-use App\Interfaces\ItemInterFace;
-use App\Interfaces\WarehouseInterFace;
-use App\Models\Item;
-use App\Models\ItemCategory;
+
+use App\Interfaces\WarehouseInterface;
+
 use App\Models\Warehouse;
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class WarehouseRepository implements WarehouseInterFace
+final class WarehouseRepository implements WarehouseInterface
 {
     public function __construct(private readonly Warehouse $model) {}
 

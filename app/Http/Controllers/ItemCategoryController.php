@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemCategoryRequest;
-use App\Interfaces\ItemCategoryInterFace;
+use App\Interfaces\ItemCategoryInterface;
 use App\Services\ItemCategoryService;
 use Illuminate\Http\Request;
 
@@ -40,7 +40,7 @@ class ItemCategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ItemCategoryRequest $request, string $id)
     {
 
         return $this->successResponse($this->itemCategoryService->update($request,$id), 'Category updated successful');

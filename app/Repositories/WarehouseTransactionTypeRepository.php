@@ -2,17 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ItemCategoryInterface;
-use App\Interfaces\ItemInterFace;
-use App\Models\Item;
-use App\Models\ItemCategory;
-use Illuminate\Contracts\Database\Query\Builder;
+
+
+use App\Interfaces\WarehouseTransactionTypeInterface;
+
+use App\Models\WarehouseTransactionType;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class ItemRepository implements ItemInterFace
+final class WarehouseTransactionTypeRepository implements WarehouseTransactionTypeInterface
 {
-    public function __construct(private readonly Item $model) {}
+    public function __construct(private readonly WarehouseTransactionType $model) {}
 
     /**
      * getAll
@@ -28,12 +28,12 @@ final class ItemRepository implements ItemInterFace
      * getOne
      *
      * @param  int $id
-     * @return Item
+     * @return WarehouseTransactionType
      */
-    public function getOne(string $id): Item
+    public function getOne(string $id): WarehouseTransactionType
     {
         $category = $this->model->find($id);
-        if (!$category) throw new \Exception('item id not found');
+        if (!$category) throw new \Exception('warehouse transaction type id not found');
         return $category;
     }
 
@@ -41,9 +41,9 @@ final class ItemRepository implements ItemInterFace
      * store
      *
      * @param  Request $request
-     * @return Item
+     * @return WarehouseTransactionType
      */
-    public function store(Request $request): Item
+    public function store(Request $request): WarehouseTransactionType
     {
         return $this->model->create($request->all());
     }

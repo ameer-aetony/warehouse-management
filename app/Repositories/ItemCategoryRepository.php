@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ItemCategoryInterFace;
+use App\Interfaces\ItemCategoryInterface;
 use App\Models\ItemCategory;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class ItemCategoryRepository implements ItemCategoryInterFace
+final class ItemCategoryRepository implements ItemCategoryInterface
 {
     public function __construct(private readonly ItemCategory $model) {}
 

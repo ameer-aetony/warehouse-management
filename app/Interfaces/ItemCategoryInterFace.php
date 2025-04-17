@@ -6,7 +6,7 @@ use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface ItemCategoryInterFace
+interface ItemCategoryInterface
 {
 
     public function getAll(): LengthAwarePaginator;

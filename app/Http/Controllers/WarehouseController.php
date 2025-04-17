@@ -40,7 +40,7 @@ class WarehouseController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(WarehouseRequest $request, string $id)
     {
 
         return $this->successResponse($this->warehouseService->update($request, $id), 'warehouse updated successful');

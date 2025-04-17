@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Interfaces\ItemCategoryInterFace;
+use App\Interfaces\ItemCategoryInterface;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class ItemCategoryService
 {
-    public function __construct(protected readonly ItemCategoryInterFace $itemCategoryInterFace) {}
+    public function __construct(protected readonly ItemCategoryInterface $itemCategoryInterface) {}
 
     /**
      * getAll
@@ -18,7 +18,7 @@ final class ItemCategoryService
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->itemCategoryInterFace->getAll();
+        return $this->itemCategoryInterface->getAll();
     }
 
     /**
@@ -29,7 +29,7 @@ final class ItemCategoryService
      */
     public function store(Request $request): ItemCategory
     {
-        return $this->itemCategoryInterFace->store($request);
+        return $this->itemCategoryInterface->store($request);
     }
 
     /**
@@ -40,7 +40,7 @@ final class ItemCategoryService
      */
     public function getOne(string $id): ItemCategory
     {
-        return $this->itemCategoryInterFace->getOne($id);
+        return $this->itemCategoryInterface->getOne($id);
     }
 
     /**
@@ -52,7 +52,7 @@ final class ItemCategoryService
      */
     public function update(Request $request, string $id): bool
     {
-        return $this->itemCategoryInterFace->update($request, $id);
+        return $this->itemCategoryInterface->update($request, $id);
     }
 
     /**
@@ -63,6 +63,6 @@ final class ItemCategoryService
      */
     public function delete(string $id): bool
     {
-        return $this->itemCategoryInterFace->delete($id);
+        return $this->itemCategoryInterface->delete($id);
     }
 }

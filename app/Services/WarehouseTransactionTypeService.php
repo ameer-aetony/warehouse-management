@@ -2,15 +2,16 @@
 
 namespace App\Services;
 
-use App\Interfaces\WarehouseInterface;
+use App\Interfaces\WarehouseTransactionTypeInterface;
 use App\Models\Item;
-use App\Models\Warehouse;
+
+use App\Models\WarehouseTransactionType;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class WarehouseService
+final class WarehouseTransactionTypeService
 {
-    public function __construct(protected readonly WarehouseInterface $warehouseInterface) {}
+    public function __construct(protected readonly WarehouseTransactionTypeInterface $warehouseTransactionTypeInterface) {}
 
     /**
      * getAll
@@ -19,7 +20,7 @@ final class WarehouseService
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->warehouseInterface->getAll();
+        return $this->warehouseTransactionTypeInterface->getAll();
     }
 
     /**
@@ -28,9 +29,9 @@ final class WarehouseService
      * @param  Request $request
      * @return Item
      */
-    public function store(Request $request): Warehouse
+    public function store(Request $request): WarehouseTransactionType
     {
-        return $this->warehouseInterface->store($request);
+        return $this->warehouseTransactionTypeInterface->store($request);
     }
 
 
@@ -40,9 +41,9 @@ final class WarehouseService
      * @param  string $id
      * @return Item
      */
-    public function getOne(string $id): Warehouse
+    public function getOne(string $id): WarehouseTransactionType
     {
-        return $this->warehouseInterface->getOne($id);
+        return $this->warehouseTransactionTypeInterface->getOne($id);
     }
 
     /**
@@ -54,7 +55,7 @@ final class WarehouseService
      */
     public function update(Request $request, string $id): bool
     {
-        return $this->warehouseInterface->update($request, $id);
+        return $this->warehouseTransactionTypeInterface->update($request, $id);
     }
 
     /**
@@ -65,6 +66,6 @@ final class WarehouseService
      */
     public function delete(string $id): bool
     {
-        return $this->warehouseInterface->delete($id);
+        return $this->warehouseTransactionTypeInterface->delete($id);
     }
 }
