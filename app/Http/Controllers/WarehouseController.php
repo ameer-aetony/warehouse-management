@@ -15,8 +15,8 @@ class WarehouseController extends BaseController
      */
     public function index()
     {
-        $items = $this->warehouseService->getAll();
-        return $this->successResponse(['items' => $items]);
+        $warehouses = $this->warehouseService->getAll();
+        return $this->successResponse(['warehouses' => $warehouses]);
     }
 
     /**
@@ -33,8 +33,8 @@ class WarehouseController extends BaseController
      */
     public function show(string $id)
     {
-        $category = $this->warehouseService->getOne($id);
-        return $this->successResponse(['item' => $category]);
+        $warehouse = $this->warehouseService->getOne($id);
+        return $this->successResponse(['warehouse' => $warehouse]);
     }
 
     /**
