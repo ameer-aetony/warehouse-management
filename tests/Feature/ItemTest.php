@@ -148,8 +148,11 @@ class ItemTest extends TestCase
 
         $response = $this->putJson("/api/items/{$item->id}", [
             'name' => 'Updated Name',
+            'commercial_name' => 'Updated test',
+            'category_id' => $category->id,
+            'price' => 300
         ]);
-
+  
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
