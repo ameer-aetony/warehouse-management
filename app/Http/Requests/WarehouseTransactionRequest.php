@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class WarehouseTransactionTypeRequest extends FormRequest
+class WarehouseTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +22,13 @@ class WarehouseTransactionTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','in:in,out,adjustment in,adjustment out' ,Rule::unique('warehouse_transaction_types')->ignore($this->id)],
+
+            'warehouse_id' => ['required', 'exists:warehouses,id'],
+            'transaction_type_id' => ['required', 'exists:warehouse_transaction_types,id'],
+            'items' => ['required', 'array'],
+            'items.*.item_id' => ['required','exists:items,id'],
+            'items.*.quantity' => ['required', 'integer', 'min:1'],
+            'items.*.comment' => ['nullable', 'string'],
         ];
     }
 }

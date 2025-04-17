@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +16,13 @@ class WarehouseTransactionTypeFactory extends Factory
      */
     public function definition(): array
     {
+        $validTypes = ['in', 'out', 'adjustment in', 'adjustment out'];
         return [
-           'name' => $this->faker->unique()->word,
+
+                'name' => Arr::random($validTypes),
+                'created_at' => now(),
+                'updated_at' => now(),
+
         ];
     }
 }

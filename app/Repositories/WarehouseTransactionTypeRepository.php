@@ -32,6 +32,7 @@ final class WarehouseTransactionTypeRepository implements WarehouseTransactionTy
      */
     public function getOne(string $id): WarehouseTransactionType
     {
+   
         $category = $this->model->find($id);
         if (!$category) throw new \Exception('warehouse transaction type id not found');
         return $category;

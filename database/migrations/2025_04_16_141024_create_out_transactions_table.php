@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained('items');
             $table->integer('quantity');
-            $table->foreignId('warehouse_transaction_id')->constrained('warehouse_transactions');
+            $table->string('comment')->nullable();
+            $table->foreignId('warehouse_transaction_id')->constrained('warehouse_transactions')->cascadeOnDelete();
             $table->timestamps();
         });
     }

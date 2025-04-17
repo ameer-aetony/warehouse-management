@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 final class ItemCategoryService
 {
-    public function __construct(protected readonly ItemCategoryInterface $itemCategoryInterface) {}
+    public function __construct(protected readonly ItemCategoryInterface $itemCategoryInterFace) {}
 
     /**
      * getAll
@@ -18,7 +18,7 @@ final class ItemCategoryService
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->itemCategoryInterface->getAll();
+        return $this->itemCategoryInterFace->getAll();
     }
 
     /**
@@ -29,7 +29,7 @@ final class ItemCategoryService
      */
     public function store(Request $request): ItemCategory
     {
-        return $this->itemCategoryInterface->store($request);
+        return $this->itemCategoryInterFace->store($request);
     }
 
     /**
@@ -40,7 +40,7 @@ final class ItemCategoryService
      */
     public function getOne(string $id): ItemCategory
     {
-        return $this->itemCategoryInterface->getOne($id);
+        return $this->itemCategoryInterFace->getOne($id);
     }
 
     /**
@@ -52,7 +52,7 @@ final class ItemCategoryService
      */
     public function update(Request $request, string $id): bool
     {
-        return $this->itemCategoryInterface->update($request, $id);
+        return $this->itemCategoryInterFace->update($request, $id);
     }
 
     /**
@@ -63,6 +63,6 @@ final class ItemCategoryService
      */
     public function delete(string $id): bool
     {
-        return $this->itemCategoryInterface->delete($id);
+        return $this->itemCategoryInterFace->delete($id);
     }
 }

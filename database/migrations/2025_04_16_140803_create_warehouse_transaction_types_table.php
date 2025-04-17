@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('warehouse_transaction_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->enum('name',['in','out','adjustment in','adjustment out']);
             $table->timestamps();
         });
     }

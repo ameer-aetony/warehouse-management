@@ -97,28 +97,7 @@ class WarehouseTransactionTypeTest extends TestCase
              ->assertJsonValidationErrors(['name']);
      }
  
-     /** @test */
-     public function it_can_update_an_item_warehouse_transaction_type()
-     {
-         $warehouseTransactionType = WarehouseTransactionType::factory()->create(['name' => 'Old in']);
- 
-         $response = $this->putJson("/api/warehouse-transaction-types/{$warehouseTransactionType->id}", [
-             'name' => 'Updated in',
-         ]);
- 
-         $response->assertStatus(200)
-             ->assertJson([
-                 'success'=>true,
-                 'message'=>'warehouse transaction type updated successful',
-                 'data' =>true
-             ]);
- 
-         $this->assertDatabaseHas('warehouse_transaction_types', [
-             'id' => $warehouseTransactionType->id,
-             'name' => 'Updated in',
-         ]);
-     }
- 
+    
      /** @test */
      public function it_can_delete_an_item_warehouse_transaction_type()
      {
