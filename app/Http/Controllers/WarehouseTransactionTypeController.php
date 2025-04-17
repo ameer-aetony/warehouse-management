@@ -14,8 +14,12 @@ class WarehouseTransactionTypeController extends BaseController
      */
     public function index()
     {
-        $warehouse_transaction_types = $this->warehouseTransactionTypeService->getAll();
-        return $this->successResponse(['warehouse_transaction_types' => $warehouse_transaction_types]);
+        try {
+            $warehouse_transaction_types = $this->warehouseTransactionTypeService->getAll();
+            return $this->successResponse(['warehouse_transaction_types' => $warehouse_transaction_types]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -23,8 +27,11 @@ class WarehouseTransactionTypeController extends BaseController
      */
     public function store(WarehouseTransactionTypeRequest $request)
     {
-
-        return $this->successResponse($this->warehouseTransactionTypeService->store($request), 'warehouse transaction type Created successful', 201);
+        try {
+            return $this->successResponse($this->warehouseTransactionTypeService->store($request), 'warehouse transaction type Created successful', 201);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -32,8 +39,12 @@ class WarehouseTransactionTypeController extends BaseController
      */
     public function show(string $id)
     {
-        $warehouse_transaction_type = $this->warehouseTransactionTypeService->getOne($id);
-        return $this->successResponse(['warehouse_transaction_type' => $warehouse_transaction_type]);
+        try {
+            $warehouse_transaction_type = $this->warehouseTransactionTypeService->getOne($id);
+            return $this->successResponse(['warehouse_transaction_type' => $warehouse_transaction_type]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -41,8 +52,11 @@ class WarehouseTransactionTypeController extends BaseController
      */
     public function update(WarehouseTransactionTypeRequest $request, string $id)
     {
-
-        return $this->successResponse($this->warehouseTransactionTypeService->update($request, $id), 'warehouse transaction type updated successful');
+        try {
+            return $this->successResponse($this->warehouseTransactionTypeService->update($request, $id), 'warehouse transaction type updated successful');
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -50,7 +64,10 @@ class WarehouseTransactionTypeController extends BaseController
      */
     public function destroy(string $id)
     {
-
-        return $this->successResponse($this->warehouseTransactionTypeService->delete($id), 'warehouse transaction type deleted successful', 204);
+        try {
+            return $this->successResponse($this->warehouseTransactionTypeService->delete($id), 'warehouse transaction type deleted successful', 204);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

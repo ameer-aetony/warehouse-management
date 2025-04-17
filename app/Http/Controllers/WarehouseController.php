@@ -15,8 +15,13 @@ class WarehouseController extends BaseController
      */
     public function index()
     {
-        $warehouses = $this->warehouseService->getAll();
-        return $this->successResponse(['warehouses' => $warehouses]);
+
+        try {
+            $warehouses = $this->warehouseService->getAll();
+            return $this->successResponse(['warehouses' => $warehouses]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -24,8 +29,11 @@ class WarehouseController extends BaseController
      */
     public function store(WarehouseRequest $request)
     {
-
-        return $this->successResponse($this->warehouseService->store($request), 'warehouse Created successful', 201);
+        try {
+            return $this->successResponse($this->warehouseService->store($request), 'warehouse Created successful', 201);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -33,8 +41,12 @@ class WarehouseController extends BaseController
      */
     public function show(string $id)
     {
-        $warehouse = $this->warehouseService->getOne($id);
-        return $this->successResponse(['warehouse' => $warehouse]);
+        try {
+            $warehouse = $this->warehouseService->getOne($id);
+            return $this->successResponse(['warehouse' => $warehouse]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -42,8 +54,11 @@ class WarehouseController extends BaseController
      */
     public function update(WarehouseRequest $request, string $id)
     {
-
-        return $this->successResponse($this->warehouseService->update($request, $id), 'warehouse updated successful');
+        try {
+            return $this->successResponse($this->warehouseService->update($request, $id), 'warehouse updated successful');
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -51,7 +66,10 @@ class WarehouseController extends BaseController
      */
     public function destroy(string $id)
     {
-
-        return $this->successResponse($this->warehouseService->delete($id), 'warehouse deleted successful', 204);
+        try {
+            return $this->successResponse($this->warehouseService->delete($id), 'warehouse deleted successful', 204);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

@@ -14,8 +14,12 @@ class WarehouseTransactionController extends BaseController
      */
     public function index()
     {
-        $warehouse_transactions = $this->warehouseTransactionService->getAll();
-        return $this->successResponse(['warehouse_transactions' => $warehouse_transactions]);
+        try {
+            $warehouse_transactions = $this->warehouseTransactionService->getAll();
+            return $this->successResponse(['warehouse_transactions' => $warehouse_transactions]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -23,8 +27,11 @@ class WarehouseTransactionController extends BaseController
      */
     public function store(WarehouseTransactionRequest $request)
     {
-
-        return $this->successResponse($this->warehouseTransactionService->store($request), 'warehouse transaction Created successful', 201);
+        try {
+            return $this->successResponse($this->warehouseTransactionService->store($request), 'warehouse transaction Created successful', 201);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -32,8 +39,12 @@ class WarehouseTransactionController extends BaseController
      */
     public function show(string $id)
     {
-        $warehouse = $this->warehouseTransactionService->getOne($id);
-        return $this->successResponse(['warehouse' => $warehouse]);
+        try {
+            $warehouse = $this->warehouseTransactionService->getOne($id);
+            return $this->successResponse(['warehouse' => $warehouse]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -41,7 +52,10 @@ class WarehouseTransactionController extends BaseController
      */
     public function destroy(string $id)
     {
-
-        return $this->successResponse($this->warehouseTransactionService->delete($id), 'warehouse transaction deleted successful', 204);
+        try {
+            return $this->successResponse($this->warehouseTransactionService->delete($id), 'warehouse transaction deleted successful', 204);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

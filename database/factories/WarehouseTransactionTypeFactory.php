@@ -20,8 +20,6 @@ class WarehouseTransactionTypeFactory extends Factory
         return [
 
                 'name' => Arr::random($validTypes),
-                'created_at' => now(),
-                'updated_at' => now(),
 
         ];
     }

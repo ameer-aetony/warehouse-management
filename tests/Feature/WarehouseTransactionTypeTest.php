@@ -16,7 +16,7 @@ class WarehouseTransactionTypeTest extends TestCase
     {
 
         WarehouseTransactionType::factory()->count(3)->create();
-        $response = $this->getJson('/api/warehouse-transaction-types');
+        $response = $this->getJson('/api/warehouse/transaction/types');
 
         $response->assertStatus(200)
             ->assertJsonCount(3, 'data.warehouse_transaction_types.data')
@@ -44,7 +44,7 @@ class WarehouseTransactionTypeTest extends TestCase
         $warehouseTransactionType = WarehouseTransactionType::factory()->create([
             'name' => 'in'
         ]);
-        $response = $this->getJson("/api/warehouse-transaction-types/{$warehouseTransactionType->id}");
+        $response = $this->getJson("/api/warehouse/transaction/types/{$warehouseTransactionType->id}");
 
         $response->assertStatus(200)
             ->assertJson([
@@ -61,16 +61,17 @@ class WarehouseTransactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_404_if_warehouse_transaction_type_not_found()
+    public function it_returns_if_warehouse_transaction_type_not_found()
     {
-        $response = $this->getJson('/api/warehouse-transaction-types/999');
-        $response->assertStatus(500);
+        $response = $this->getJson('/api/warehouse/transaction/types/999');
+
+        $response->assertStatus(400);
     }
 
     /** @test */
     public function it_can_create_an_item_warehouse_transaction_type()
     {
-        $response = $this->postJson('/api/warehouse-transaction-types', [
+        $response = $this->postJson('/api/warehouse/transaction/types', [
             'name' => 'out',
         ]);
 
@@ -91,7 +92,7 @@ class WarehouseTransactionTypeTest extends TestCase
      /** @test */
      public function it_validates_required_fields_when_creating_warehouse_transaction_type()
      {
-         $response = $this->postJson('/api/warehouse-transaction-types', []);
+         $response = $this->postJson('/api/warehouse/transaction/types', []);
  
          $response->assertStatus(422)
              ->assertJsonValidationErrors(['name']);
@@ -103,7 +104,7 @@ class WarehouseTransactionTypeTest extends TestCase
      {
          $warehouseTransactionType = WarehouseTransactionType::factory()->create();
  
-         $response = $this->deleteJson("/api/warehouse-transaction-types/{$warehouseTransactionType->id}");
+         $response = $this->deleteJson("/api/warehouse/transaction/types/{$warehouseTransactionType->id}");
         
          $response->assertStatus(204);
          $this->assertDatabaseMissing('warehouse_transaction_types', ['id' => $warehouseTransactionType->id]);

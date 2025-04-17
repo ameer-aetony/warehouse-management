@@ -15,8 +15,12 @@ class ItemController extends BaseController
      */
     public function index()
     {
-        $items = $this->itemService->getAll();
-        return $this->successResponse(['items' => $items]);
+        try {
+            $items = $this->itemService->getAll();
+            return $this->successResponse(['items' => $items]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -24,8 +28,11 @@ class ItemController extends BaseController
      */
     public function store(ItemRequest $request)
     {
-
-        return $this->successResponse($this->itemService->store($request), 'Items Created successful', 201);
+        try {
+            return $this->successResponse($this->itemService->store($request), 'Items Created successful', 201);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -33,8 +40,12 @@ class ItemController extends BaseController
      */
     public function show(string $id)
     {
-        $category = $this->itemService->getOne($id);
-        return $this->successResponse(['item' => $category]);
+        try {
+            $category = $this->itemService->getOne($id);
+            return $this->successResponse(['item' => $category]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -42,8 +53,11 @@ class ItemController extends BaseController
      */
     public function update(ItemRequest $request, string $id)
     {
-
-        return $this->successResponse($this->itemService->update($request, $id), 'Items updated successful');
+        try {
+            return $this->successResponse($this->itemService->update($request, $id), 'Items updated successful');
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -51,7 +65,10 @@ class ItemController extends BaseController
      */
     public function destroy(string $id)
     {
-
-        return $this->successResponse($this->itemService->delete($id), 'Items deleted successful', 204);
+        try {
+            return $this->successResponse($this->itemService->delete($id), 'Items deleted successful', 204);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

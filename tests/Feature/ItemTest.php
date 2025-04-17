@@ -69,10 +69,10 @@ class ItemTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_404_if_item_not_found()
+    public function it_returns_if_item_not_found()
     {
         $response = $this->getJson('/api/items/999');
-        $response->assertStatus(500);
+        $response->assertStatus(400);
     }
 
     /** @test */

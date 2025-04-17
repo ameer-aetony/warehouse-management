@@ -15,8 +15,12 @@ class ItemCategoryController extends BaseController
      */
     public function index()
     {
-        $categories = $this->itemCategoryService->getAll();
-        return $this->successResponse(['categories' => $categories]);
+        try {
+            $categories = $this->itemCategoryService->getAll();
+            return $this->successResponse(['categories' => $categories]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -24,8 +28,11 @@ class ItemCategoryController extends BaseController
      */
     public function store(ItemCategoryRequest $request)
     {
-        
-        return $this->successResponse($this->itemCategoryService->store($request), 'Category Created successful',201);
+        try {
+            return $this->successResponse($this->itemCategoryService->store($request), 'Category Created successful', 201);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -33,8 +40,12 @@ class ItemCategoryController extends BaseController
      */
     public function show(string $id)
     {
-        $category = $this->itemCategoryService->getOne($id);
-        return $this->successResponse(['category' => $category]);
+        try {
+            $category = $this->itemCategoryService->getOne($id);
+            return $this->successResponse(['category' => $category]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -42,8 +53,11 @@ class ItemCategoryController extends BaseController
      */
     public function update(ItemCategoryRequest $request, string $id)
     {
-
-        return $this->successResponse($this->itemCategoryService->update($request,$id), 'Category updated successful');
+        try {
+            return $this->successResponse($this->itemCategoryService->update($request, $id), 'Category updated successful');
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -51,7 +65,10 @@ class ItemCategoryController extends BaseController
      */
     public function destroy(string $id)
     {
-        
-        return $this->successResponse($this->itemCategoryService->delete($id), 'Category deleted successful',204);
+        try {
+            return $this->successResponse($this->itemCategoryService->delete($id), 'Category deleted successful', 204);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

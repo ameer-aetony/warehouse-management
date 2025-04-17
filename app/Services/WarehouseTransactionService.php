@@ -2,15 +2,11 @@
 
 namespace App\Services;
 
-use App\Interfaces\InTransactionInterface;
 use App\Interfaces\ItemInterFace;
-use App\Interfaces\OutTransactionInterface;
 use App\Interfaces\WarehouseTransactionInterface;
 use App\Interfaces\WarehouseTransactionTypeInterface;
 use App\Models\Item;
 use App\Models\WarehouseTransaction;
-use App\Models\WarehouseTransactionType;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +19,6 @@ final class WarehouseTransactionService
 
     public function __construct(
         protected readonly WarehouseTransactionInterface $warehouseTransactionInterface,
-        protected readonly InTransactionInterface $inTransactionInterface,
-        protected readonly OutTransactionInterface $outTransactionInterface,
         protected readonly WarehouseTransactionTypeInterface $warehouseTransactionTypeInterface,
         protected readonly ItemInterFace $itemInterFace
     ) {}
@@ -99,7 +93,7 @@ final class WarehouseTransactionService
 
         return $this->warehouseTransactionInterface->store($warehouseTransactionData);
     }
-    
+
     /**
      * processWarehouseTransactionDetail
      *
@@ -114,7 +108,7 @@ final class WarehouseTransactionService
             $this->createWarehouseTransactionDetail($item, $type, $warehouseTransaction);
         }
     }
-        
+
     /**
      * createWarehouseTransactionDetail
      *
@@ -137,7 +131,7 @@ final class WarehouseTransactionService
         }
     }
 
-        
+
     /**
      * createInTransaction
      *
@@ -149,7 +143,7 @@ final class WarehouseTransactionService
     {
         $warehouseTransaction->inTransactions()->create($TransactionData);
     }
-    
+
     /**
      * createOutTransaction
      *
@@ -162,7 +156,7 @@ final class WarehouseTransactionService
 
         $warehouseTransaction->outTransactions()->create($TransactionData);
     }
-    
+
     /**
      * checkQuantityInStock
      *
@@ -172,13 +166,15 @@ final class WarehouseTransactionService
      */
     private function checkQuantityInStock(string $item_id, int $quantity): void
     {
-        $inStock = $this->inTransactionInterface->getAllIncoming($item_id);
-        if ($quantity > $inStock) {
+        $stockService = app(StockService::class);
+        $stock = $stockService->calculateStock($item_id);
+
+        if ($quantity > $stock['remaining']) {
             $item = $this->itemInterFace->getOne($item_id);
             throw new \App\Exceptions\InsufficientStockException('The number of the requested product is greater than the number in the warehouse.' . $item->name);
         }
     }
-    
+
     /**
      * prepareWarehouseTransactionData
      *

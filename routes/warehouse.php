@@ -16,7 +16,7 @@ Route::prefix('warehouses')->controller(WarehouseController::class)->group(funct
 });
 
 // warehouse transaction type route
-Route::prefix('warehouse-transaction-types')->controller(WarehouseTransactionTypeController::class)->group(function () {
+Route::prefix('warehouse/transaction/types')->controller(WarehouseTransactionTypeController::class)->group(function () {
     Route::get('/','index');
     Route::get('/{id}','show');
     Route::post('/','store');
@@ -25,11 +25,10 @@ Route::prefix('warehouse-transaction-types')->controller(WarehouseTransactionTyp
 });
 
 // warehouse transaction  route
-Route::prefix('warehouse-transactions')->controller(WarehouseTransactionController::class)->group(function () {
+Route::prefix('warehouse/transactions')->controller(WarehouseTransactionController::class)->group(function () {
     Route::get('/','index');
     Route::get('/{id}','show');
     Route::post('/','store');
-    Route::put('/{id}','update');
     Route::delete('/{id}','destroy');
 });
 
