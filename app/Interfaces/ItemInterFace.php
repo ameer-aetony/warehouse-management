@@ -13,6 +13,8 @@ interface ItemInterFace
 
     public function getOne(string $id): Item;
 
+    public function getItemMovement(string $id): Item;
+
     public function store(Request $request): Item;
 
     public function update(Request $request,string $id): bool;

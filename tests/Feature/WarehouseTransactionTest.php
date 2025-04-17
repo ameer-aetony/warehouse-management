@@ -57,7 +57,6 @@ class WarehouseTransactionTest extends TestCase
     }
 
 
-
     /** @test */
     public function it_can_create_an_outbound_transaction()
     {

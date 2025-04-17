@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemRequest;
 use App\Services\ItemService;
+use App\Services\StockService;
 use Illuminate\Http\Request;
 
 class ItemController extends BaseController
@@ -41,8 +42,33 @@ class ItemController extends BaseController
     public function show(string $id)
     {
         try {
-            $category = $this->itemService->getOne($id);
-            return $this->successResponse(['item' => $category]);
+            $item = $this->itemService->getOne($id);
+            return $this->successResponse(['item' => $item]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
+    }
+
+    /**
+     * get movements item.
+     */
+    public function itemMovement(string $id)
+    {
+        try {
+            $movements = $this->itemService->getItemMovement($id);
+            return $this->successResponse(['movements' => $movements]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
+    }
+
+    public function itemInventory(string $id)
+    {
+        try {
+            $stockService = app(StockService::class);
+            $stock = $stockService->calculateStock($id);
+          
+            return $this->successResponse(['total_income' => $stock['in_stock'], 'total_outcome' => $stock['out_stock'], 'remaining' => $stock['remaining']]);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());
         }

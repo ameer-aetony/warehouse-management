@@ -15,9 +15,9 @@ interface OutTransactionInterface
 
     public function store(array $request): OutTransaction;
 
-    public function update(array $request,string $id): bool;
+    public function itemOutcome(string $id): OutTransaction;
 
     public function delete(string $id): bool;
-
+    
     public function getAllOutcoming(string $id): int;
 }

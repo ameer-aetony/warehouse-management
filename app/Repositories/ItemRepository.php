@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ItemCategoryInterface;
+
 use App\Interfaces\ItemInterFace;
 use App\Models\Item;
-use App\Models\ItemCategory;
-use Illuminate\Contracts\Database\Query\Builder;
+
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -21,7 +20,7 @@ final class ItemRepository implements ItemInterFace
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->model->latest()->paginate();
+        return $this->model->with('category')->latest()->paginate();
     }
 
     /**
@@ -32,11 +31,25 @@ final class ItemRepository implements ItemInterFace
      */
     public function getOne(string $id): Item
     {
-        $category = $this->model->find($id);
-        if (!$category) throw new \Exception('item id not found');
-        return $category;
+        $item = $this->model->with('category')->find($id);
+        if (!$item) throw new \Exception('item id not found');
+        return $item;
+    }   
+    
+    public function getItemMovement(string $id): Item
+    {
+       return $this->getOne($id)->load([
+        'inTransactions' => function ($query) {
+            $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
+                  ->with(['warehouseTransaction.transactionType:id,name']);
+        },
+        'outTransactions' => function ($query) {
+            $query->select('id', 'item_id', 'quantity', 'warehouse_transaction_id')
+                  ->with(['warehouseTransaction.transactionType:id,name']);
+        }
+    ]);
     }
-
+     
     /**
      * store
      *
@@ -57,8 +70,8 @@ final class ItemRepository implements ItemInterFace
      */
     public function update(Request $request,string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->update($request->all());
+        $item = $this->getOne($id);
+        return $item->update($request->all());
     }
     
     /**
@@ -69,7 +82,7 @@ final class ItemRepository implements ItemInterFace
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $item = $this->getOne($id);
+        return $item->delete($id);
     }
 }

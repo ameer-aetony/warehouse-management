@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\InTransactionInterface;
 use Illuminate\Http\Request;
 
-class InTransactionController extends Controller
+class InTransactionController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected readonly InTransactionInterface $inTransactionInterface) {}
     public function index()
     {
-        //
+       
+        try {
+           
+            $inTransactions =   $this->inTransactionInterface->getAll();
+            return $this->successResponse(['inTransactions' => $inTransactions]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -19,6 +25,10 @@ class InTransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            return  $this->inTransactionInterface->delete($id);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }

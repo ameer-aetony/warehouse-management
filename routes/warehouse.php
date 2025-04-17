@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InTransactionController;
+use App\Http\Controllers\OutTransactionController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WarehouseTransactionTypeController;
 use App\Http\Controllers\WarehouseTransactionController;
@@ -31,6 +33,19 @@ Route::prefix('warehouse/transactions')->controller(WarehouseTransactionControll
     Route::post('/','store');
     Route::delete('/{id}','destroy');
 });
+
+// in transaction  route
+Route::prefix('warehouse/in/transactions')->controller(InTransactionController::class)->group(function () {
+    Route::get('/','index');
+    Route::delete('/{id}','destroy');
+});
+
+// out transaction  route
+Route::prefix('warehouse/out/transactions')->controller(OutTransactionController::class)->group(function () {
+    Route::get('/','index');
+    Route::delete('/{id}','destroy');
+});
+
 
 
 

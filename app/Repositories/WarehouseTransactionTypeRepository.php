@@ -33,9 +33,9 @@ final class WarehouseTransactionTypeRepository implements WarehouseTransactionTy
     public function getOne(string $id): WarehouseTransactionType
     {
    
-        $category = $this->model->find($id);
-        if (!$category) throw new \Exception('warehouse transaction type id not found');
-        return $category;
+        $warehouseTransactionType = $this->model->find($id);
+        if (!$warehouseTransactionType) throw new \Exception('warehouse transaction type id not found');
+        return $warehouseTransactionType;
     }
 
     /**
@@ -58,8 +58,8 @@ final class WarehouseTransactionTypeRepository implements WarehouseTransactionTy
      */
     public function update(Request $request,string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->update($request->all());
+        $warehouseTransactionType = $this->getOne($id);
+        return $warehouseTransactionType->update($request->all());
     }
     
     /**
@@ -70,7 +70,7 @@ final class WarehouseTransactionTypeRepository implements WarehouseTransactionTy
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $warehouseTransactionType = $this->getOne($id);
+        return $warehouseTransactionType->delete($id);
     }
 }

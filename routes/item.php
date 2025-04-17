@@ -19,6 +19,8 @@ Route::prefix('categories')->controller(ItemCategoryController::class)->group(fu
 Route::prefix('items')->controller(ItemController::class)->group(function () {
     Route::get('/','index');
     Route::get('/{id}','show');
+    Route::get('movements/{id}','itemMovement');
+    Route::get('inventory/{id}','itemInventory');
     Route::post('/','store');
     Route::put('/{id}','update');
     Route::delete('/{id}','destroy');

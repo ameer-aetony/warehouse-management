@@ -13,9 +13,7 @@ interface InTransactionInterface
 
     public function store(array $request): InTransaction;
 
-    public function getOne(string $id): InTransaction;
-
-    public function update(array $request,string $id): bool;
+    public function itemIncome(string $id): InTransaction;
 
     public function delete(string $id): bool;
 

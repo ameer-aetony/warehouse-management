@@ -20,7 +20,7 @@ final class InTransactionRepository implements InTransactionInterface
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->model->latest()->paginate();
+        return $this->model->with(['item','warehouseTransaction.transactionType'])->latest()->paginate();
     }
 
     /**
@@ -29,11 +29,11 @@ final class InTransactionRepository implements InTransactionInterface
      * @param  int $id
      * @return InTransaction
      */
-    public function getOne(string $id): InTransaction
+    public function itemIncome(string $id): InTransaction
     {
-        $category = $this->model->find($id);
-        if (!$category) throw new \Exception('warehouse transaction  id not found');
-        return $category;
+        $inTransaction = $this->model->with(['item','warehouseTransaction.transactionType'])->find($id);
+        if (!$inTransaction) throw new \Exception('int transaction  id not found');
+        return $inTransaction;
     }
 
     /**
@@ -46,19 +46,7 @@ final class InTransactionRepository implements InTransactionInterface
     {
         return $this->model->create($request);
     }
-
-    /**
-     * update
-     *
-     * @param  int $id
-     * @param  array $request
-     * @return bool
-     */
-    public function update(array $request, string $id): bool
-    {
-        $category = $this->getOne($id);
-        return $category->update($request);
-    }
+    
 
     /**
      * delete
@@ -68,8 +56,8 @@ final class InTransactionRepository implements InTransactionInterface
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $inTransaction = $this->model->find($id);
+        return $inTransaction->delete($id);
     }
     
     /**

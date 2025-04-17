@@ -15,6 +15,7 @@ class WarehouseTransactionController extends BaseController
     public function index()
     {
         try {
+           
             $warehouse_transactions = $this->warehouseTransactionService->getAll();
             return $this->successResponse(['warehouse_transactions' => $warehouse_transactions]);
         } catch (\Throwable $th) {

@@ -18,7 +18,7 @@ final class OutTransactionRepository implements OutTransactionInterface
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->model->latest()->paginate();
+        return $this->model->with(['item', 'warehouseTransaction.transactionType'])->latest()->paginate();
     }
 
     /**
@@ -27,11 +27,11 @@ final class OutTransactionRepository implements OutTransactionInterface
      * @param  int $id
      * @return OutTransaction
      */
-    public function getOne(string $id): OutTransaction
+    public function itemOutcome(string $id): OutTransaction
     {
-        $category = $this->model->find($id);
-        if (!$category) throw new \Exception('warehouse transaction  id not found');
-        return $category;
+        $outTransaction = $this->model->with(['item', 'warehouseTransaction.transactionType'])->find($id);
+        if (!$outTransaction) throw new \Exception('out transaction  id not found');
+        return $outTransaction;
     }
 
     /**
@@ -46,19 +46,6 @@ final class OutTransactionRepository implements OutTransactionInterface
     }
 
     /**
-     * update
-     *
-     * @param  int $id
-     * @param  array $request
-     * @return bool
-     */
-    public function update(array $request, string $id): bool
-    {
-        $category = $this->getOne($id);
-        return $category->update($request);
-    }
-
-    /**
      * delete
      *
      * @param  int $id
@@ -66,8 +53,8 @@ final class OutTransactionRepository implements OutTransactionInterface
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $outTransaction = $this->model->find($id);
+        return $outTransaction->delete($id);
     }
 
     /**

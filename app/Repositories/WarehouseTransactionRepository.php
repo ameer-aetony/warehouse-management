@@ -20,9 +20,9 @@ final class WarehouseTransactionRepository implements WarehouseTransactionInterf
      */
     public function getAll(): LengthAwarePaginator
     {
-        return $this->model->with(['warehouse','transactionType','inTransactions.item','outTransactions.item'])->latest()->paginate();
+        return $this->model->with(['warehouse:id,name,location','transactionType:id,name','inTransactions.item:id,name,commercial_name,category_id','outTransactions.item:id,name,commercial_name,category_id'])->latest()->paginate();
     }
-       
+   
     /**
      * getOne
      *
@@ -31,9 +31,9 @@ final class WarehouseTransactionRepository implements WarehouseTransactionInterf
      */
     public function getOne(string $id): WarehouseTransaction
     {
-        $category = $this->model->with(['warehouse','transactionType','inTransactions.item','outTransactions.item'])->find($id);
-        if (!$category) throw new \Exception('warehouse transaction  id not found');
-        return $category;
+        $warehouseTransaction = $this->model->with(['warehouse:id,name,location','transactionType:id,name','inTransactions.item:id,name,commercial_name,category_id','outTransactions.item:id,name,commercial_name,category_id'])->find($id);
+        if (!$warehouseTransaction) throw new \Exception('warehouse transaction  id not found');
+        return $warehouseTransaction;
     }
 
     /**
@@ -55,7 +55,7 @@ final class WarehouseTransactionRepository implements WarehouseTransactionInterf
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $warehouseTransaction = $this->getOne($id);
+        return $warehouseTransaction->delete($id);
     }
 }

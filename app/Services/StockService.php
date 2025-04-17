@@ -14,10 +14,20 @@ class StockService
 
     public  function calculateStock(string $itemId): array
     {
+      
         return [
+         
             'in_stock' => $this->inTransaction->getAllIncoming($itemId),
             'out_stock' => $this->outTransaction->getAllOutcoming($itemId),
             'remaining' => $this->inTransaction->getAllIncoming($itemId) - $this->outTransaction->getAllOutcoming($itemId)
+        ];
+    }
+
+    public function getMovementItem(string $itemId): array
+    {
+        return [
+            'total_in' => $this->inTransaction->itemIncome($itemId),
+            'total_out' => $this->outTransaction->itemOutcome($itemId),
         ];
     }
 }

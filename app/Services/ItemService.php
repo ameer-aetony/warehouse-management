@@ -21,6 +21,11 @@ final class ItemService
         return $this->itemInterFace->getAll();
     }
 
+    public function getItemMovement(string $id)
+    {
+        return $this->itemInterFace->getItemMovement($id);
+    }
+
     /**
      * store
      *

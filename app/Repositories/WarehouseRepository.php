@@ -31,9 +31,9 @@ final class WarehouseRepository implements WarehouseInterface
      */
     public function getOne(string $id): Warehouse
     {
-        $category = $this->model->find($id);
-        if (!$category) throw new \Exception('Warehouse id not found');
-        return $category;
+        $warehouse = $this->model->find($id);
+        if (!$warehouse) throw new \Exception('Warehouse id not found');
+        return $warehouse;
     }
 
     /**
@@ -56,8 +56,8 @@ final class WarehouseRepository implements WarehouseInterface
      */
     public function update(Request $request,string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->update($request->all());
+        $warehouse = $this->getOne($id);
+        return $warehouse->update($request->all());
     }
     
     /**
@@ -68,7 +68,7 @@ final class WarehouseRepository implements WarehouseInterface
      */
     public function delete(string $id): bool
     {
-        $category = $this->getOne($id);
-        return $category->delete($id);
+        $warehouse = $this->getOne($id);
+        return $warehouse->delete($id);
     }
 }

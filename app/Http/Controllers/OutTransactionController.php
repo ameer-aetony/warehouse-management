@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\OutTransactionInterface;
 use Illuminate\Http\Request;
 
-class OutTransactionController extends Controller
+class OutTransactionController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected readonly OutTransactionInterface $outTransactionInterface) {}
+
     public function index()
     {
-        //
+        try {
+
+            $outTransactions =   $this->outTransactionInterface->getAll();
+            return $this->successResponse(['outTransactions' => $outTransactions]);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
@@ -19,6 +25,10 @@ class OutTransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            return  $this->outTransactionInterface->delete($id);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage());
+        }
     }
 }
