@@ -1,4 +1,4 @@
-#  Warehouse Management System Restful-Api
+#  Warehouse Management System RESTFUL-API
 
 
 A modern warehouse management system built with **Laravel 12** using Repository-Service pattern for clean architecture.
@@ -18,7 +18,12 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 
 ## 🚀 API Documentation
 
-[!(https://run.pstmn.io/button.svg)](/Docs/postman.json)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/YOUR_POSTMAN_ID)
+[![Postman Collection](https://img.shields.io/badge/Postman-Collection-orange)](https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/docs/postman_collection.json)
+
+### Direct Links
+- [Download Collection](docs/postman_collection.json)
+- [View in GitHub](docs/postman_collection.json)
 
 
 
