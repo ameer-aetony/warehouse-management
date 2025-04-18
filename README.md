@@ -16,12 +16,17 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 -Database: [MySQl]
 
 ## 🛠️ Technical Implementation
-Domain Models
-Model	Description
-Warehouse	Physical storage locations
-Item	Inventory items with auto-generated codes
-Transaction	Movement records (IN/OUT)
-TransactionType	Classification (Purchase/Sale/etc.)
+
+### Domain Models
+
+| Model                | Description                                                                 | Key Attributes                          |
+|----------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| **Warehouse**        | Physical storage locations                                                 | `name`, `location`, `capacity`         |
+| **Item**             | Inventory items with [auto-generated codes](#-code-generation-logic)        | `name`, `commercial_name`, `code`, `category_id` |
+| **Transaction**      | Movement records (IN/OUT) with audit trail                                  | `transaction_type_id`, `warehouse_id`, `status` |
+| **TransactionType**  | Classification (Purchase/Sale/Return/etc.)                                  | `name`, `flow` (`in`/`out`)            |
+
+
 
 ## 🚀 API Documentation
 
