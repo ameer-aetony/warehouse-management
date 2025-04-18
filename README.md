@@ -1,17 +1,24 @@
-<h1> Warehouse Information System - Backend Documentation </h1>>
+# 🏭 Warehouse Management System (Laravel)
 
+![Laravel](https://img.shields.io/badge/Laravel-10.x-red?style=flat&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.1+-blue?style=flat&logo=php)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat&logo=mysql)
 
-Step 1: Core System Setup
-Objective
-Build a backend system to track item imports/exports, with transactional history and item origin tracing.
+A modern warehouse management system built with **Laravel 10** using Repository-Service pattern for clean architecture.
 
-Models & Relationships
-Model	Fields (Key)	Relationships
-Warehouse	id, name, location	Has many WarehouseTransaction
-WarehouseTransaction	id, code, date, type_id	Belongs to WarehouseTransactionType
-WarehouseTransactionType	id, name (e.g., "inbound", "outbound")	Has many WarehouseTransaction
-Item	id, name, commercial_name, code, category_id	Belongs to ItemCategory
-ItemCategory	id, name	Has many Item
-InTransaction	id, item_id, quantity, price	Morphs to WarehouseTransaction
-OutTransaction	id, source_transaction_id (FK to InTransaction), quantity	Morphs to WarehouseTransaction
+## ✨ Features
 
+- 📦 **Inventory Tracking** (Inbound/Outbound)
+- 🔢 **Auto-generated Item Codes** (Smart formatting)
+- 🔄 **Transaction Reversal System**
+- 📊 **Real-time Stock Reports**
+- 🔒 **Role-based Access Control**
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    A[API Controllers] --> B[Services]
+    B --> C[Repositories]
+    C --> D[Models]
+    D --> E[(Database)]
