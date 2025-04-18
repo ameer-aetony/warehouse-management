@@ -19,6 +19,16 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 | Database      | MySQL                   | 8.0+    |
 
 
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    A[API Controllers] --> B[Services]
+    B --> C[Repositories]
+    C --> D[Models]
+    D --> E[(Database)]
+```
+
 ## 🛠️ Technical Implementation
 
 ### Domain Models
@@ -44,13 +54,21 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 
 
 
-## 🏗️ Architecture
+## 📡 API Response Structure
 
-```mermaid
-graph TD
-    A[API Controllers] --> B[Services]
-    B --> C[Repositories]
-    C --> D[Models]
-    D --> E[(Database)]
+### Consistent Response Format
+All API responses follow this standardized JSON structure:
 
+**Success Response**:
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    /* endpoint-specific data */
+  },
+  "meta": {
+    /* pagination/aggregation data */
+  }
+}
 
