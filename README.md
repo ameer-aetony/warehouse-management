@@ -1,18 +1,15 @@
-# 🏭 Warehouse Management System (Laravel)
+#  Warehouse Management System Restful-Api
 
-![Laravel](https://img.shields.io/badge/Laravel-10.x-red?style=flat&logo=laravel)
-![PHP](https://img.shields.io/badge/PHP-8.1+-blue?style=flat&logo=php)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=flat&logo=mysql)
 
-A modern warehouse management system built with **Laravel 10** using Repository-Service pattern for clean architecture.
+A modern warehouse management system built with **Laravel 12** using Repository-Service pattern for clean architecture.
 
-## ✨ Features
+##  Features
 
-- 📦 **Inventory Tracking** (Inbound/Outbound)
-- 🔢 **Auto-generated Item Codes** (Smart formatting)
-- 🔄 **Transaction Reversal System**
-- 📊 **Real-time Stock Reports**
-- 🔒 **Role-based Access Control**
+-  **Inventory Tracking** (Inbound/Outbound)
+-  **Auto-generated Item Codes** (Smart formatting)
+- **Transaction Reversal System**
+- **Real-time Stock Reports**
+
 
 ## 🏗️ Architecture
 
