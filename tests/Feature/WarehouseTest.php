@@ -18,7 +18,7 @@ class WarehouseTest extends TestCase
         Warehouse::factory()->count(3)->create();
 
         $response = $this->getJson('/api/warehouses');
-
+        
         $response->assertStatus(200)
             ->assertJsonCount(3, 'data.warehouses.data')
             ->assertJsonStructure([

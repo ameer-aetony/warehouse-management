@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface WarehouseInterface
 {
 
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(Request $request): LengthAwarePaginator;
 
     public function getOne(string $id): Warehouse;
 

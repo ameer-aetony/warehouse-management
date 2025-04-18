@@ -16,9 +16,9 @@ final class ItemService
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->itemInterFace->getAll();
+        return $this->itemInterFace->getAll($request);
     }
 
     /**

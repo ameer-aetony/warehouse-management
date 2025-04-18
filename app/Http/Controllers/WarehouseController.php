@@ -13,11 +13,11 @@ class WarehouseController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
         try {
-            $warehouses = $this->warehouseService->getAll();
+            $warehouses = $this->warehouseService->getAll($request);
             return $this->successResponse(['warehouses' => $warehouses]);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());

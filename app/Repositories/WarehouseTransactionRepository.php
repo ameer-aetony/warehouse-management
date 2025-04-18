@@ -18,11 +18,41 @@ final class WarehouseTransactionRepository implements WarehouseTransactionInterf
      *
      * @return array
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->model->with(['warehouse:id,name,location','transactionType:id,name','inTransactions.item:id,name,commercial_name,category_id','outTransactions.item:id,name,commercial_name,category_id'])->latest()->paginate();
+        return $this->model
+            ->with([
+                'warehouse:id,name,location',
+                'transactionType:id,name',
+                'inTransactions.item:id,name,commercial_name,category_id',
+                'outTransactions.item:id,name,commercial_name,category_id'
+            ])
+            ->when(request('search'), function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+
+                    $q->where('code', 'like', "%{$search}%")
+                        ->orWhere('created_at', 'like', "%{$search}%");
+
+                    $q->orWhereHas('warehouse', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('location', 'like', "%{$search}%");
+                    });
+
+                    $q->orWhereHas('inTransactions.item', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('commercial_name', 'like', "%{$search}%");
+                    });
+
+                    $q->orWhereHas('outTransactions.item', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('commercial_name', 'like', "%{$search}%");
+                    });
+                });
+            })->when(request('filter_by_type'),function($q,$warehouseTransactionId){
+                $q->where('transaction_type_id', $warehouseTransactionId);
+            })->latest()->paginate();
     }
-   
+
     /**
      * getOne
      *
@@ -31,7 +61,7 @@ final class WarehouseTransactionRepository implements WarehouseTransactionInterf
      */
     public function getOne(string $id): WarehouseTransaction
     {
-        $warehouseTransaction = $this->model->with(['warehouse:id,name,location','transactionType:id,name','inTransactions.item:id,name,commercial_name,category_id','outTransactions.item:id,name,commercial_name,category_id'])->find($id);
+        $warehouseTransaction = $this->model->with(['warehouse:id,name,location', 'transactionType:id,name', 'inTransactions.item:id,name,commercial_name,category_id', 'outTransactions.item:id,name,commercial_name,category_id'])->find($id);
         if (!$warehouseTransaction) throw new \Exception('warehouse transaction  id not found');
         return $warehouseTransaction;
     }

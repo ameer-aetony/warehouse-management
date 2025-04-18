@@ -12,15 +12,13 @@ class WarehouseTransactionController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
+     
            
-            $warehouse_transactions = $this->warehouseTransactionService->getAll();
+            $warehouse_transactions = $this->warehouseTransactionService->getAll($request);
             return $this->successResponse(['warehouse_transactions' => $warehouse_transactions]);
-        } catch (\Throwable $th) {
-            return $this->errorResponse($th->getMessage());
-        }
+     
     }
 
     /**

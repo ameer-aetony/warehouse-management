@@ -14,10 +14,10 @@ class ItemController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $items = $this->itemService->getAll();
+            $items = $this->itemService->getAll($request);
             return $this->successResponse(['items' => $items]);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());

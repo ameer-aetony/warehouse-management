@@ -18,9 +18,13 @@ final class ItemRepository implements ItemInterFace
      *
      * @return array
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->model->with('category')->latest()->paginate();
+        return $this->model->when(request('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('commercial_name', 'like', "%{$search}%")
+                ->orWhere('code', 'like', "%{$search}%");
+        })->with('category')->latest()->paginate();
     }
 
     /**

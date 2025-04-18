@@ -16,9 +16,9 @@ final class ItemCategoryService
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->itemCategoryInterFace->getAll();
+        return $this->itemCategoryInterFace->getAll($request);
     }
 
     /**

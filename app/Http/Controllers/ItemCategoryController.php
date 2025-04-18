@@ -13,10 +13,10 @@ class ItemCategoryController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $categories = $this->itemCategoryService->getAll();
+            $categories = $this->itemCategoryService->getAll($request);
             return $this->successResponse(['categories' => $categories]);
         } catch (\Throwable $th) {
             return $this->errorResponse($th->getMessage());

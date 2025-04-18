@@ -28,9 +28,9 @@ final class WarehouseTransactionService
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->warehouseTransactionInterface->getAll();
+        return $this->warehouseTransactionInterface->getAll($request);
     }
 
     /**

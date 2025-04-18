@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ItemInterFace
 {
 
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(Request $request): LengthAwarePaginator;
 
     public function getOne(string $id): Item;
 
