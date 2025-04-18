@@ -18,8 +18,7 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 
 ## 🚀 API Documentation
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/YOUR_POSTMAN_ID)
-[![Postman Collection](https://img.shields.io/badge/Postman-Collection-orange)](https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/docs/postman_collection.json)
+[![Postman Collection](https://img.shields.io/badge/Postman-Collection-orange)]()
 
 ### Direct Links
 - [Download Collection](docs/postman_collection.json)
