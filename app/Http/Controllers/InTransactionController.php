@@ -10,9 +10,11 @@ class InTransactionController extends BaseController
     public function __construct(protected readonly InTransactionInterface $inTransactionInterface) {}
     public function index()
     {
-       
+        /**
+         * Display a listing of the resource.
+         */
         try {
-           
+
             $inTransactions =   $this->inTransactionInterface->getAll();
             return $this->successResponse(['inTransactions' => $inTransactions]);
         } catch (\Throwable $th) {

@@ -16,6 +16,7 @@ class WarehouseTransaction extends Model
     protected static function booted()
     {
         parent::booted();
+        //generate code from observer
         self::observe(WarehouseTransactionObserver::class);
     }
     

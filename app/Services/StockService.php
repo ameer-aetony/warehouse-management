@@ -11,7 +11,14 @@ class StockService
         private InTransactionInterface $inTransaction,
         private OutTransactionInterface $outTransaction
     ) {}
-
+    
+    
+    /**
+     * calculateStock display the item quantity income and outcome in  warehouse
+     *
+     * @param  string $itemId
+     * @return array
+     */
     public  function calculateStock(string $itemId): array
     {
       
@@ -22,7 +29,13 @@ class StockService
             'remaining' => $this->inTransaction->getAllIncoming($itemId) - $this->outTransaction->getAllOutcoming($itemId)
         ];
     }
-
+    
+    /**
+     * getMovementItem to view item movements in a warehouse
+     *
+     * @param  string $itemId
+     * @return array
+     */
     public function getMovementItem(string $itemId): array
     {
         return [

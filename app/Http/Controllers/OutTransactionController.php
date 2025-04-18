@@ -11,6 +11,9 @@ class OutTransactionController extends BaseController
 
     public function index()
     {
+        /**
+         * Display a listing of the resource.
+         */
         try {
 
             $outTransactions =   $this->outTransactionInterface->getAll();

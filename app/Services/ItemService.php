@@ -12,7 +12,7 @@ final class ItemService
     public function __construct(protected readonly ItemInterFace $itemInterFace) {}
 
     /**
-     * getAll
+     * getAll items
      *
      * @return LengthAwarePaginator
      */
@@ -22,7 +22,7 @@ final class ItemService
     }
 
     /**
-     * getItemMovement
+     * get item Movements
      *
      * @param  string $id
      * @return void
@@ -33,7 +33,7 @@ final class ItemService
     }
 
     /**
-     * store
+     * store item
      *
      * @param  Request $request
      * @return Item
@@ -45,7 +45,7 @@ final class ItemService
 
 
     /**
-     * getOne
+     * getOne item
      *
      * @param  string $id
      * @return Item
@@ -56,7 +56,7 @@ final class ItemService
     }
 
     /**
-     * update
+     * update item
      *
      * @param  Request $request
      * @param  string $id
@@ -68,7 +68,7 @@ final class ItemService
     }
 
     /**
-     * delete
+     * delete item
      *
      * @param  string $id
      * @return bool
@@ -77,9 +77,9 @@ final class ItemService
     {
         return $this->itemInterFace->delete($id);
     }
-    
+
     /**
-     * reverseCodeToItem
+     * reverse Code To Item
      *
      * @param  string $code
      * @return Item
@@ -88,10 +88,10 @@ final class ItemService
     {
         if (strlen($code) < 7) throw new \Exception('invalid code');
 
-        $itemChar = substr($code, 0, 1);
-        $categoryChar = substr($code, 1, 2);
-        $commercialChar = substr($code, 3, 1);
-        $lengthCommercialChar = substr($code, 6);
+        $itemChar = substr($code, 0, 1);   //get first char form item
+        $categoryChar = substr($code, 1, 2); //get first - end char form item category
+        $commercialChar = substr($code, 3, 1); //get first  char form commercial name
+        $lengthCommercialChar = substr($code, 6); //get length  char commercial name
 
         return $this->itemInterFace->reverseCodeToItem($itemChar, $categoryChar, $commercialChar, $lengthCommercialChar);
     }

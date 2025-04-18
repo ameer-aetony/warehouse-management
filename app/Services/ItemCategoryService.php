@@ -12,7 +12,7 @@ final class ItemCategoryService
     public function __construct(protected readonly ItemCategoryInterface $itemCategoryInterFace) {}
 
     /**
-     * getAll
+     * get all items category
      *
      * @return LengthAwarePaginator
      */
@@ -22,7 +22,7 @@ final class ItemCategoryService
     }
 
     /**
-     * store
+     * store items category
      *
      * @param  Request $request
      * @return ItemCategory
@@ -33,7 +33,7 @@ final class ItemCategoryService
     }
 
     /**
-     * getOne
+     * get One items category
      *
      * @param  string $id
      * @return ItemCategory
@@ -44,7 +44,7 @@ final class ItemCategoryService
     }
 
     /**
-     * update
+     * update items category
      *
      * @param  Request $request
      * @param  string $id
@@ -56,7 +56,7 @@ final class ItemCategoryService
     }
 
     /**
-     * delete
+     * delete items category
      *
      * @param  Request $id
      * @return bool

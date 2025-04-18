@@ -13,7 +13,7 @@ final class WarehouseService
     public function __construct(protected readonly WarehouseInterface $warehouseInterface) {}
 
     /**
-     * getAll
+     * getAll warehouse
      *
      * @return LengthAwarePaginator
      */
@@ -23,7 +23,7 @@ final class WarehouseService
     }
 
     /**
-     * store
+     * store warehouse
      *
      * @param  Request $request
      * @return Item
@@ -35,7 +35,7 @@ final class WarehouseService
 
 
     /**
-     * getOne
+     * getOne warehouse
      *
      * @param  string $id
      * @return Item
@@ -46,7 +46,7 @@ final class WarehouseService
     }
 
     /**
-     * update
+     * update warehouse
      *
      * @param  Request $request
      * @param  string $id
@@ -58,7 +58,7 @@ final class WarehouseService
     }
 
     /**
-     * delete
+     * delete warehouse
      *
      * @param  string $id
      * @return bool

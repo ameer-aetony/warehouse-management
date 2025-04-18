@@ -24,7 +24,7 @@ final class WarehouseTransactionService
     ) {}
 
     /**
-     * getAll
+     * getAll Warehouse Transaction
      *
      * @return LengthAwarePaginator
      */
@@ -34,7 +34,7 @@ final class WarehouseTransactionService
     }
 
     /**
-     * store
+     * store Warehouse Transaction
      *
      * @param  Request $request
      * @return Item
@@ -44,8 +44,14 @@ final class WarehouseTransactionService
         try {
             DB::beginTransaction();
 
+
+            // create the main transaction 
             $warehouseTransaction = $this->createWarehouseTransaction($request);
+
+            // get transaction type 
             $transaction_type = $this->warehouseTransactionTypeInterface->getOne($request->input('transaction_type_id'));
+
+
             $this->processWarehouseTransactionDetail($request->input('items', []), $transaction_type->name, $warehouseTransaction);
 
             DB::commit();
@@ -119,14 +125,16 @@ final class WarehouseTransactionService
      */
     private function createWarehouseTransactionDetail(array $item, string $type, WarehouseTransaction $warehouseTransaction)
     {
-        $TransactionData = $this->prepareWarehouseTransactionData($item, $warehouseTransaction->id);
 
+        $TransactionData = $this->prepareWarehouseTransactionData($item, $warehouseTransaction->id);
+        // check type if in or out
         if (in_array($type, static::INBOUND_TYPES, true)) {
 
             $this->createInTransaction($TransactionData, $warehouseTransaction);
         } else if (in_array($type, static::OUTBOUND_TYPES, true)) {
-
+            // validate stock available  
             $this->checkQuantityInStock($item['item_id'], $item['quantity']);
+
             $this->createOutTransaction($TransactionData, $warehouseTransaction);
         }
     }
@@ -148,7 +156,7 @@ final class WarehouseTransactionService
      * createOutTransaction
      *
      * @param  array $inTransactionData
-     * @param  mixed $warehouseTransaction
+     * @param  WarehouseTransaction $warehouseTransaction
      * @return void
      */
     private function createOutTransaction(array $TransactionData, WarehouseTransaction $warehouseTransaction)
@@ -166,9 +174,11 @@ final class WarehouseTransactionService
      */
     private function checkQuantityInStock(string $item_id, int $quantity): void
     {
+        // call StockService 
         $stockService = app(StockService::class);
+        //  get quantities 
         $stock = $stockService->calculateStock($item_id);
-
+        //  if not available in stock 
         if ($quantity > $stock['remaining']) {
             $item = $this->itemInterFace->getOne($item_id);
             throw new \App\Exceptions\InsufficientStockException('The number of the requested product is greater than the number in the warehouse.' . $item->name);
