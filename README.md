@@ -90,12 +90,20 @@ All API responses follow this standardized JSON structure:
 *Success Response*:
 ```json
 {
-  "status": "success",
+  "success": true,
   "code": 200,
+  "message":""
   "data": {
     /* endpoint-specific data */
   },
-  "meta": {
-    /* pagination/aggregation data */
-  }
+
+}
+```
+*Error Response*:
+```json
+{
+  "success": false,
+  "code": 400,
+  "message": { },
+
 }
