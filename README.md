@@ -15,6 +15,13 @@ A modern warehouse management system built with **Laravel 12** using Repository-
 -Backend: [Larave,PHP]
 -Database: [MySQl]
 
+## 🛠️ Technical Implementation
+Domain Models
+Model	Description
+Warehouse	Physical storage locations
+Item	Inventory items with auto-generated codes
+Transaction	Movement records (IN/OUT)
+TransactionType	Classification (Purchase/Sale/etc.)
 
 ## 🚀 API Documentation
 
